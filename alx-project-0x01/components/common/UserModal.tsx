@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 
 const UserModal: React.FC<UserModalProps> = ({ onClose, onSubmit }) => {
   const [formData, setFormData] = useState<UserData>({
+    id: 0,
     name: "",
     username: "",
     email: "",
@@ -48,11 +49,11 @@ const UserModal: React.FC<UserModalProps> = ({ onClose, onSubmit }) => {
         <h2 className="text-2xl font-bold mb-4 text-gray-800">Add New Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="userId" className="block text-gray-700 font-medium mb-2">Name</label>
+            <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name</label>
             <input
-              type="number"
-              id="userId"
-              name="userId"
+              type="text"
+              id="name"
+              name="name"
               value={formData.name}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
