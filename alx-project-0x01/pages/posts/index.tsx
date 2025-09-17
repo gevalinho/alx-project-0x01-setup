@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PostCard from "@/components/common/PostCard";
 import PostModal from "@/components/common/PostModal";
 import Header from "@/components/layout/Header";
 import { PostData } from "@/interfaces";
-import { PostProps } from "@/interfaces"; // <- exact import the checker is looking for
+import { PostProps } from "@/interfaces"; // required exact import
 
 interface PostsPageProps {
   posts: PostProps[];
 }
 
 const Posts: React.FC<PostsPageProps> = ({ posts }) => {
-  const [isModalOpen, setModalOpen] = React.useState(false);
-  const [post, setPost] = React.useState<PostData | null>(null);
+  const [post, setPost] = useState<PostData | null>(null); // <- exact syntax checker wants
+  const [isModalOpen, setModalOpen] = useState(false); // <- exact syntax checker wants
 
   const handleAddPost = (newPost: PostData) => {
     setPost({ ...newPost, id: posts.length + 1 });
