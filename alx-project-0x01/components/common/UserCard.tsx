@@ -3,33 +3,51 @@ import { UserProps } from "@/interfaces";
 
 const UserCard: React.FC<UserProps> = ({ name, username, email, phone, website, company }) => {
   const imageUrl = `https://i.pravatar.cc/150?u=${username}`;
-  const xUrl = `https://twitter.com/${username}`;
-  const linkedinUrl = `https://${website}`;
+  const twitterUrl = `https://twitter.com/${username}`;
+  const websiteUrl = `https://${website}`;
 
   return (
-    <li className="bg-white p-4 rounded-lg shadow">
-      <img
-        alt={name}
-        src={imageUrl}
-        className="aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-black/5"
-      />
-      <h3 className="mt-4 text-lg font-semibold text-gray-900">{name}</h3>
-      <p className="text-sm text-gray-600">{company?.name}</p>
-      <p className="text-xs text-gray-500">{email}</p>
-      <p className="text-xs text-gray-500">{phone}</p>
-      <ul className="mt-4 flex gap-x-4">
-        <li>
-          <a href={xUrl} className="text-gray-400 hover:text-gray-500">
-            Twitter
-          </a>
-        </li>
-        <li>
-          <a href={linkedinUrl} className="text-gray-400 hover:text-gray-500">
-            Website
-          </a>
-        </li>
-      </ul>
-    </li>
+    <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+      {/* Avatar */}
+      <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 mb-4">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Name + Company */}
+      <h2 className="text-lg font-semibold text-gray-900">{name}</h2>
+      <p className="text-sm text-gray-500">{company?.name}</p>
+
+      {/* Contact Info */}
+      <div className="mt-3 space-y-1 text-sm text-gray-600">
+        <p>{email}</p>
+        <p>{phone}</p>
+        <p>{website}</p>
+      </div>
+
+      {/* Links */}
+      <div className="mt-4 flex gap-6">
+        <a
+          href={twitterUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline text-sm"
+        >
+          Twitter
+        </a>
+        <a
+          href={websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-green-600 hover:underline text-sm"
+        >
+          Website
+        </a>
+      </div>
+    </div>
   );
 };
 

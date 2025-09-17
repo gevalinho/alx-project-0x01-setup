@@ -1,36 +1,33 @@
 import React from "react";
+import UserCard from "@/components/common/UserCard";
 import { UserProps } from "@/interfaces";
 
-const UserCard: React.FC<UserProps> = ({ name, username, email, phone, website, company }) => {
-  const imageUrl = `https://i.pravatar.cc/150?u=${username}`;
-  const xUrl = `https://twitter.com/${username}`;
-  const linkedinUrl = `https://${website}`;
+interface UsersPageProps {
+  posts: UserProps[];
+}
 
+const UsersPage: React.FC<UsersPageProps> = ({ posts }) => {
   return (
-    <li className="bg-white p-4 rounded-lg shadow">
-      <img
-        alt={name}
-        src={imageUrl}
-        className="aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-black/5"
-      />
-      <h3 className="mt-4 text-lg font-semibold text-gray-900">{name}</h3>
-      <p className="text-sm text-gray-600">{company?.name}</p>
-      <p className="text-xs text-gray-500">{email}</p>
-      <p className="text-xs text-gray-500">{phone}</p>
-      <ul className="mt-4 flex gap-x-4">
-        <li>
-          <a href={xUrl} className="text-gray-400 hover:text-gray-500">
-            Twitter
-          </a>
-        </li>
-        <li>
-          <a href={linkedinUrl} className="text-gray-400 hover:text-gray-500">
-            Website
-          </a>
-        </li>
-      </ul>
-    </li>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">Our Users</h1>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((user) => (
+          <UserCard key={user.id} {...user} />
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default UserCard;
+export async function getStaticProps() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const posts = await response.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default UsersPage;
